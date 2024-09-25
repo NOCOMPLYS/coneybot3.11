@@ -1,7 +1,7 @@
 from aiogram import Router, Dispatcher, F
 from aiogram.methods.send_message import SendMessage
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message
+from aiogram.types import Message, FSInputFile
 from database.sqlite_db import db
 from decouple import config
 
@@ -45,7 +45,7 @@ async def send_sql_db(message: Message):
     if message.from_user.id in admins:
         table = open('database.db', 'rb')
         await message.answer('Текущая таблица прикреплена ниже')
-        await message.answer_document(table)
+        await message.answer_document(FSInputFile("database.db"))
 
 # функция для реагирования на команду /cancel
 @router.message(F.text, Command("cancel"))
