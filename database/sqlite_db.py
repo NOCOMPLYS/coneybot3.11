@@ -46,6 +46,14 @@ class Database:
         with self.connection:
             return self.cursor.execute("SELECT waiting FROM admins WHERE id = ?", (id,)).fetchone()
 
+    def add_mentor(self, nickname):
+        with self.connection:
+            return self.cursor.execute("INSERT INTO mentors (nick) VALUES (?)", (nickname,))
+
+    def del_mentor(self, nickname):
+        with self.connection:
+            return self.cursor.execute("DELETE FROM mentors WHERE nickname=?", (nickname,))
+
 
 db = Database('database.db')
 if db.connection:
