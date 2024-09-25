@@ -1,4 +1,4 @@
-from aiogram import Router, Dispatcher
+from aiogram import Router, Dispatcher, F
 from aiogram.methods.send_message import SendMessage
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
@@ -39,7 +39,7 @@ async def start_command(message: Message):
         await message.answer('🔔 Не забудьте включить уведомления, чтобы не пропусить напоминание о вебинаре.')
 
 # функция для реагирования на команду /sql
-@router.message(Command("sql"))
+@router.message(F.text, Command("sql"))
 async def send_sql_db(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
@@ -48,7 +48,7 @@ async def send_sql_db(message: Message):
         await message.answer_document(table)
 
 # функция для реагирования на команду /cancel
-@router.message(Command("cancel"))
+@router.message(F.text, Command("cancel"))
 async def cancel_notif(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
@@ -59,7 +59,7 @@ async def cancel_notif(message: Message):
         await message.answer('Рассылка оповещений отключена')
 
 # функция для реагирования на команду /send
-@router.message(Command("send"))
+@router.message(F.text, Command("send"))
 async def send_notif(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
@@ -69,7 +69,7 @@ async def send_notif(message: Message):
         db.set_waiting(id, 1)
         await message.answer('Пришли текст оповещения')
 
-@router.message()
+@router.message(F.text)
 async def no_type_message(message: Message):
     # Приcваивание переменной user значение id пользователя для дальнейшега удобства в использовании
     user = message.from_user.id
