@@ -15,6 +15,7 @@ PORT = int(config("PORT"))
 WEBHOOK_PATH = f'/{BOT_TOKEN}'
 BASE_URL = config("BASE_URL")
 
+admins = [int(ADMIN_ID), int(ADMIN_ID_2), int(ADMIN_ID_3)]
 router = Router()
 
 def is_int(text):
@@ -41,9 +42,6 @@ async def start_command(message: Message):
 # функция для реагирования на команду /sql
 @router.message(F.text, Command("sql"))
 async def send_sql_db(message: Message):
-    admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
-    print(admins)
-    print(message.from_user.id)
     if message.from_user.id in admins:
         table = open('database.db', 'rb')
         await message.answer('Текущая таблица прикреплена ниже')
@@ -52,7 +50,6 @@ async def send_sql_db(message: Message):
 # функция для реагирования на команду /cancel
 @router.message(F.text, Command("cancel"))
 async def cancel_notif(message: Message):
-    admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
         for i in range(len(admins)):
             if admins[i] == message.from_user.id:
@@ -63,7 +60,6 @@ async def cancel_notif(message: Message):
 # функция для реагирования на команду /send
 @router.message(F.text, Command("send"))
 async def send_notif(message: Message):
-    admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
         for i in range(len(admins)):
             if admins[i] == message.from_user.id:
@@ -79,7 +75,6 @@ async def no_type_message(message: Message):
     for m in db.get_users():
         users.append(m[0])
 
-    admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if user in admins:
         for i in range(len(admins)):
             if admins[i] == user:
