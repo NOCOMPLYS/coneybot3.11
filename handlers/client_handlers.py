@@ -42,6 +42,8 @@ async def start_command(message: Message):
 @router.message(F.text, Command("sql"))
 async def send_sql_db(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
+    print(admins)
+    print(message.from_user.id)
     if message.from_user.id in admins:
         table = open('database.db', 'rb')
         await message.answer('Текущая таблица прикреплена ниже')
