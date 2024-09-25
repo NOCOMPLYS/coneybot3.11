@@ -61,7 +61,7 @@ async def cancel_notif(message: Message):
 # функция для реагирования на команду /send
 @router.message(Command("send"))
 async def send_notif(message: Message):
-    admins = [ADMIN_ID, ADMIN_ID_3, ADMIN_ID_3]
+    admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
         for i in range(len(admins)):
             if admins[i] == message.from_user.id:
