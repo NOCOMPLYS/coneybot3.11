@@ -26,7 +26,7 @@ def is_int(text):
 
 # функция для реагирования на команду /start
 @router.message(F.text, CommandStart())
-async def start_command(message: Message) -> None:
+async def start_command(message: Message):
     user = message.from_user.id
     users = []
     for m in db.get_users():
@@ -40,7 +40,7 @@ async def start_command(message: Message) -> None:
 
 # функция для реагирования на команду /sql
 @router.message(F.text, Command("sql"))
-async def send_sql_db(message: Message) -> None:
+async def send_sql_db(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
         table = open('database.db', 'rb')
@@ -49,7 +49,7 @@ async def send_sql_db(message: Message) -> None:
 
 # функция для реагирования на команду /cancel
 @router.message(F.text, Command("cancel"))
-async def cancel_notif(message: Message) -> None:
+async def cancel_notif(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_2, ADMIN_ID_3]
     if message.from_user.id in admins:
         for i in range(len(admins)):
@@ -60,7 +60,7 @@ async def cancel_notif(message: Message) -> None:
 
 # функция для реагирования на команду /send
 @router.message(F.text, Command("send"))
-async def send_notif(message: Message) -> None:
+async def send_notif(message: Message):
     admins = [ADMIN_ID, ADMIN_ID_3, ADMIN_ID_3]
     if message.from_user.id in admins:
         for i in range(len(admins)):
@@ -69,8 +69,8 @@ async def send_notif(message: Message) -> None:
         db.set_waiting(id, 1)
         await message.answer('Пришли текст оповещения')
 
-@router.message()
-async def no_type_message(message: Message) -> None:
+@router.message(F.text)
+async def no_type_message(message: Message):
     # Приcваивание переменной user значение id пользователя для дальнейшега удобства в использовании
     user = message.from_user.id
     users = []
@@ -88,7 +88,7 @@ async def no_type_message(message: Message) -> None:
                 await SendMessage(bot_user, message.text)
             await message.answer('Сообщение успешно разослано пользователям!')
 
-    if user not in users and db.get_name(user)[0] == None and db.get_age(user)[0] == None:
+    if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
         db.set_name(user, message.text)
         await message.answer('Приятно познакомиться! Подскажи, сколько тебе лет?')
