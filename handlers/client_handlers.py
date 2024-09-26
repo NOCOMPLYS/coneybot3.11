@@ -83,7 +83,7 @@ async def no_type_message(message: Message):
             db.set_waiting(id, 0)
             for bot_user in users:
                 try:
-                    return SendMessage(bot_user, message.text)
+                    SendMessage(bot_user, message.text)
                 except:
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
