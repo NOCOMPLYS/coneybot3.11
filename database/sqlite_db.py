@@ -72,9 +72,9 @@ class Database:
             nicks_all = self.cursor.execute("SELECT nick FROM mentors").fetchall()
             names_all = self.cursor.execute("SELECT name FROM mentors").fetchall()
             for i in range(len(nicks_all)):
-                nicks.append(nicks_all[i]
+                nicks.append(nicks_all[i])
             for i in range(len(names_all)):
-                names.append(names_all[i]
+                names.append(names_all[i])
             return [nicks, names]
             j += 1
             if j < len(nicks):
