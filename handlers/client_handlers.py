@@ -66,8 +66,8 @@ async def cancel_notif(message: Message):
         for i in range(len(admins)):
             if admins[i] == message.from_user.id:
                 id = i + 1
-        db.set_waiting(id, 0)
-        await message.answer('Рассылка оповещений отключена')
+        db.cancel_waiting(id)
+        await message.answer('Действие отменено')
 
 # функция для реагирования на команду /send
 @router.message(F.text, Command("send"))
@@ -76,8 +76,28 @@ async def send_notif(message: Message):
         for i in range(len(admins)):
             if admins[i] == message.from_user.id:
                 id = i + 1
-        db.set_waiting(id, 1)
+        db.set_waiting(id, 'waiting')
         await message.answer('Пришли текст оповещения')
+
+# функция для реагирования на команду /add
+@router.message(F.text, Command("add"))
+async def add_mentor(message: Message):
+    if message.from_user.id in admins:
+        for i in range(len(admins)):
+            if admins[i] == message.from_user.id:
+                id = i + 1
+        db.set_waiting(id, 'waiting_mentor_add')
+        await message.answer('Пришли никнейм ментора')
+
+# функция для реагирования на команду /del
+@router.message(F.text, Command("del"))
+async def add_mentor(message: Message):
+    if message.from_user.id in admins:
+        for i in range(len(admins)):
+            if admins[i] == message.from_user.id:
+                id = i + 1
+        db.set_waiting(id, 'waiting_mentor_del')
+        await message.answer('Пришли никнейм ментора')
 
 @router.message(F.text)
 async def no_type_message(message: Message):
@@ -90,14 +110,25 @@ async def no_type_message(message: Message):
         for i in range(len(admins)):
             if admins[i] == user:
                 id = i + 1
-        if db.get_waiting(id)[0] == 1:
-            db.set_waiting(id, 0)
+        data = db.get_waiting(id)[0]
+        if data[0] == 1:
+            db.cancel_waiting(id)
             for bot_user in users:
                 try:
                     await bot.send_message(bot_user, message.text)
                 except:
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
+        elif data[1] == 1:
+            nick, name = map(str, message.text.split())
+            nick = nick.replace("@")
+            db.add_mentor(nick, name)
+            await message.answer("Вы успешно добавили ментора!")
+        elif data[2] == 1:
+            nick, name = map(str, message.text.split())
+            nick = nick.replace("@")
+            db.del_mentor(nick, name)
+            await message.answer("Вы успешно удалили ментора!")
 
     if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
