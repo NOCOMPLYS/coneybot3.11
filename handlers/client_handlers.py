@@ -4,7 +4,6 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, FSInputFile
 from database.sqlite_db import db
 from decouple import config
-from create_bot import bot
 
 # переменные для работы
 ADMIN_ID = config('ADMIN_ID')
@@ -84,7 +83,7 @@ async def no_type_message(message: Message):
             db.set_waiting(id, 0)
             for bot_user in users:
                 try:
-                    await bot.send_message(bot_user, message.text)
+                    await SendMessage(bot_user, message.text)
                 except:
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
