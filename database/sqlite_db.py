@@ -45,8 +45,8 @@ class Database:
     def cancel_waiting(self, id):
         with self.connection:
             return self.cursor.execute("UPDATE admins SET waiting = 0 WHERE id = ?", (id,))
-            return self.cursor.execute("UPDATE admins SET waiting_mentor_del = 0 WHERE id = ?", (id,))
             return self.cursor.execute("UPDATE admins SET waiting_mentor_add = 0 WHERE id = ?", (id,))
+            return self.cursor.execute("UPDATE admins SET waiting_mentor_del = 0 WHERE id = ?", (id,))
     
     def get_waiting(self, id):
         with self.connection:
