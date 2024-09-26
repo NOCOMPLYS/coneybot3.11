@@ -99,6 +99,10 @@ async def no_type_message(message: Message):
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
 
+    users = []
+    for m in db.get_users():
+        users.append(m[0])
+    
     if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
         db.set_name(user, message.text)
