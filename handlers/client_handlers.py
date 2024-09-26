@@ -79,11 +79,11 @@ async def no_type_message(message: Message):
         for i in range(len(admins)):
             if admins[i] == user:
                 id = i + 1
-        print(db.get_waiting(id))
         if db.get_waiting(id)[0] == 1:
             db.set_waiting(id, 0)
             for bot_user in users:
-                await SendMessage(bot_user, message.text)
+                try:
+                    await SendMessage(bot_user, message.text)
             await message.answer('Сообщение успешно разослано пользователям!')
 
     if user not in users:
