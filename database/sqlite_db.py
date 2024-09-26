@@ -71,6 +71,8 @@ class Database:
             current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1").fetchone()[0]
             nicks_all = self.cursor.execute("SELECT nick FROM mentors").fetchall()
             names_all = self.cursor.execute("SELECT name FROM mentors").fetchall()
+            nicks = []
+            names = []
             for i in range(len(nicks_all)):
                 nicks.append(nicks_all[i])
             for i in range(len(names_all)):
