@@ -114,9 +114,10 @@ async def no_type_message(message: Message):
         if data[1] == 1:
             db.cancel_waiting(id)
             for bot_user in users:
-                await bot.send_message(bot_user, message.text)
-                #except:
-                    #pass
+                try:
+                    await bot.send_message(bot_user, message.text)
+                except:
+                    pass
             await message.answer('Сообщение успешно разослано пользователям!')
         elif data[2] == 1:
             db.cancel_waiting(id)
@@ -127,11 +128,10 @@ async def no_type_message(message: Message):
         elif data[3] == 1:
             db.cancel_waiting(id)
             nickt = message.text.replace("@", "")
-            try:
-                db.del_mentor(nick)
-                await message.answer("Вы успешно удалили ментора!")
-            except:
-                await message.answer("Ошибка! Проверь правильно ли введён никнейм")
+            db.del_mentor(nick)
+            await message.answer("Вы успешно удалили ментора!")
+            #except:
+                #await message.answer("Ошибка! Проверь правильно ли введён никнейм")
 
     if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
