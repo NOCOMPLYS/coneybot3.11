@@ -68,7 +68,7 @@ class Database:
 
     def change_current_mentor(self):
         with self.connection:
-            current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1?").fetchone()[0]
+            current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1").fetchone()[0]
             nicks = self.cursor.execute("SELECT nick FROM mentors").fetchone()[0]
             names = self.cursor.execute("SELECT name FROM mentors").fetchone()[0]
             for i in range(len(nicks)):
