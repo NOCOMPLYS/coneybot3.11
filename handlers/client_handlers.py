@@ -82,16 +82,16 @@ async def send_notif(message: Message):
 @router.message(F.text)
 async def no_type_message(message: Message):
     # Приcваивание переменной user значение id пользователя для дальнейшега удобства в использовании
-    user = message.from_user.id    
+    user = message.from_user.id
+    users = []
+    for m in db.get_users():
+        users.append(m[0])
     if user in admins:
         for i in range(len(admins)):
             if admins[i] == user:
                 id = i + 1
         if db.get_waiting(id)[0] == 1:
             db.set_waiting(id, 0)
-            users = []
-            for m in db.get_users():
-                users.append(m[0])
             for bot_user in users:
                 try:
                     await bot.send_message(bot_user, message.text)
@@ -99,10 +99,6 @@ async def no_type_message(message: Message):
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
 
-    users = []
-    for m in db.get_users():
-        users.append(m[0])
-    
     if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
         db.set_name(user, message.text)
