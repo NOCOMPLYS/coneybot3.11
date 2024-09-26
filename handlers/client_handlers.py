@@ -4,12 +4,12 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, FSInputFile
 from database.sqlite_db import db
 from decouple import config
+from create_bot import bot
 
 # переменные для работы
 ADMIN_ID = config('ADMIN_ID')
 ADMIN_ID_2 = config('ADMIN_ID_2')
 ADMIN_ID_3 = config('ADMIN_ID_3')
-BOT_TOKEN = config("BOT_TOKEN")
 HOST = config("HOST")
 PORT = int(config("PORT"))
 WEBHOOK_PATH = f'/{BOT_TOKEN}'
@@ -83,7 +83,7 @@ async def no_type_message(message: Message):
             db.set_waiting(id, 0)
             for bot_user in users:
                 try:
-                    await SendMessage(bot_user, message.text)
+                    await bot.send_message(bot_user, message.text)
                 except:
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
