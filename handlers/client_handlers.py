@@ -111,7 +111,7 @@ async def no_type_message(message: Message):
             if admins[i] == user:
                 id = i + 1
         data = db.get_waiting(id)
-        if data[0] == 1:
+        if data[1] == 1:
             db.cancel_waiting(id)
             for bot_user in users:
                 try:
@@ -119,13 +119,13 @@ async def no_type_message(message: Message):
                 except:
                     pass
             await message.answer('Сообщение успешно разослано пользователям!')
-        elif data[1] == 1:
+        elif data[2] == 1:
             db.cancel_waiting(id)
             nick, name = map(str, message.text.split())
             nick = nick.replace("@")
             db.add_mentor(nick, name)
             await message.answer("Вы успешно добавили ментора!")
-        elif data[2] == 1:
+        elif data[3] == 1:
             db.cancel_waiting(id)
             nick, name = map(str, message.text.split())
             nick = nick.replace("@")
