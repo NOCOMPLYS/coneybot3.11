@@ -60,7 +60,7 @@ async def send_mentor(message: Message):
             names = n[0]
             await message.answer("nicks: " + f"{str(nicks)}")
             await message.answer("names: " + f"{str(names)}")
-            await message.answer(f"Я вижу вы готовы перейти к заработку. <a href='https://t.me/{current_mentor_nick}'><i><b>[{current_mentor_name}]</b></i></a>", parse_mode='html')
+            await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/{current_mentor_nick}'><i><b>{current_mentor_name}</b></i></a>", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
 
