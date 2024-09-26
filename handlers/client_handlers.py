@@ -56,7 +56,7 @@ async def send_mentor(message: Message):
             #db.change_current_mentor()
             #await message.answer(str(nicknames[0]))
             #await message.answer(str(nicknames[1]))
-            await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/{current_mentor_nick}'><i><b>{current_mentor_name}</b></i></a>", parse_mode='html')
+            await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/agenda766'><i><b>Арсений</b></i></a>", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
 
