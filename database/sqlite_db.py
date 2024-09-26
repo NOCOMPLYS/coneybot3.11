@@ -73,6 +73,7 @@ class Database:
             names = self.cursor.execute("SELECT name FROM mentors").fetchall()
             return nicks
             for i in range(len(nicks)):
+                return nicks[i][0]
                 if nicks[i][0] == current_nick:
                     j = i
             j += 1
