@@ -47,7 +47,13 @@ async def send_mentor(message: Message):
     for m in db.get_users():
          users.append(m[0])
     if message.from_user.id in users:
-        await message.answer('Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет ')
+        if False:
+            pass
+        else:
+            current_mentor = db.get_current_mentor()
+            current_mentor_nick = current_mentor[0]
+            current_mentor_name = current_mentor[1]
+            await message.answer(f"Я вижу вы готовы перейти к заработку. <a href='https://t.me/{current_mentor_nick}'><i><b>[{current_mentor_name}]</b></i></a>", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
 
