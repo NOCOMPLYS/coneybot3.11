@@ -127,7 +127,7 @@ async def no_type_message(message: Message):
             await message.answer("Вы успешно добавили ментора!")
         elif data[3] == 1:
             db.cancel_waiting(id)
-            nickt = message.text.replace("@", "")
+            nick = message.text.replace("@", "")
             db.del_mentor(nick)
             await message.answer("Вы успешно удалили ментора!")
             #except:
