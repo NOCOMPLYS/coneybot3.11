@@ -54,6 +54,14 @@ class Database:
         with self.connection:
             return self.cursor.execute("DELETE FROM mentors WHERE nickname=?", (nickname,))
 
+    def check_if_user_exists(self, user_id):
+        with self.connection:
+            id = self.cursor.execute("SELECT user_id FROM users WHERE user_id = ?", (user_id,)).fetchone()
+            if len(id) > 0:
+                return True
+            else:
+                return False
+
 
 db = Database('database.db')
 if db.connection:
