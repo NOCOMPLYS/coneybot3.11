@@ -84,6 +84,8 @@ async def no_type_message(message: Message):
             for bot_user in users:
                 try:
                     await SendMessage(bot_user, message.text)
+                except:
+                    pass
             await message.answer('Сообщение успешно разослано пользователям!')
 
     if user not in users:
