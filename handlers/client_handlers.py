@@ -41,7 +41,7 @@ async def start_command(message: Message):
         await message.answer('🔔 Не забудьте включить уведомления, чтобы не пропусить напоминание о вебинаре.')
 
 # Функция для реагирования на кнопку Зарабатывать
-@router.message(F.text.lower() == "Зарабатывать")
+@router.message(F.text.lower() == "зарабатывать")
 async def send_mentor(message: Message):
     await message.answer('Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет ')
 
