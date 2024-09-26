@@ -40,7 +40,7 @@ class Database:
         
     def set_waiting(self, id, waiting):
         with self.connection:
-            return self.cursor.execute(f"UPDATE admins SET {waiting} = 1 WHERE id = ?", (waiting, id,)) 
+            return self.cursor.execute(f"UPDATE admins SET {waiting} = 1 WHERE id = ?", (id,)) 
     
     def cancel_waiting(self, id):
         with self.connection:
