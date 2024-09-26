@@ -97,7 +97,7 @@ async def add_mentor(message: Message):
             if admins[i] == message.from_user.id:
                 id = i + 1
         db.set_waiting(id, 'waiting_mentor_del')
-        await message.answer('Пришли никнейм и имя ментора как показано снизу:\n@jhonybeegood Николай')
+        await message.answer('Пришли никнейм ментора как показано снизу:\n@jhonybeegood')
 
 @router.message(F.text)
 async def no_type_message(message: Message):
@@ -127,9 +127,8 @@ async def no_type_message(message: Message):
             await message.answer("Вы успешно добавили ментора!")
         elif data[3] == 1:
             db.cancel_waiting(id)
-            nick, name = map(str, message.text.split())
-            nick = nick.replace("@", "")
-            db.del_mentor(nick, name)
+            nickt = text.replace("@", "")
+            db.del_mentor(nick)
             await message.answer("Вы успешно удалили ментора!")
 
     if user not in users:
