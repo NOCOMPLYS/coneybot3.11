@@ -40,6 +40,11 @@ async def start_command(message: Message):
         await message.answer('Вы уже зарегистрированы.')
         await message.answer('🔔 Не забудьте включить уведомления, чтобы не пропусить напоминание о вебинаре.')
 
+# Функция для реагирования на кнопку Зарабатывать
+@router.message(F.text.lower() == "без пюрешки")
+async def send_mentor(message: Message):
+    await message.answer('Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет ')
+
 # функция для реагирования на команду /sql
 @router.message(F.text, Command("sql"))
 async def send_sql_db(message: Message):
@@ -71,17 +76,16 @@ async def send_notif(message: Message):
 @router.message(F.text)
 async def no_type_message(message: Message):
     # Приcваивание переменной user значение id пользователя для дальнейшега удобства в использовании
-    user = message.from_user.id
-    users = []
-    for m in db.get_users():
-        users.append(m[0])
-
+    user = message.from_user.id    
     if user in admins:
         for i in range(len(admins)):
             if admins[i] == user:
                 id = i + 1
         if db.get_waiting(id)[0] == 1:
             db.set_waiting(id, 0)
+            users = []
+            for m in db.get_users():
+                users.append(m[0])
             for bot_user in users:
                 try:
                     await bot.send_message(bot_user, message.text)
