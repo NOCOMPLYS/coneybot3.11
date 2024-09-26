@@ -128,10 +128,11 @@ async def no_type_message(message: Message):
         elif data[3] == 1:
             db.cancel_waiting(id)
             nick = message.text.replace("@", "")
-            db.del_mentor(nick)
-            await message.answer("Вы успешно удалили ментора!")
-            #except:
-                #await message.answer("Ошибка! Проверь правильно ли введён никнейм")
+            try:
+                db.del_mentor(nick)
+                await message.answer("Вы успешно удалили ментора!")
+            except:
+                await message.answer("Ошибка! Проверь правильно ли введён никнейм и пришли мне его заново или нажми /cancel чтобы отменить удаление")
 
     if user not in users:
         db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
