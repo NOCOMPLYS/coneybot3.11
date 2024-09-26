@@ -87,7 +87,7 @@ async def add_mentor(message: Message):
             if admins[i] == message.from_user.id:
                 id = i + 1
         db.set_waiting(id, 'waiting_mentor_add')
-        await message.answer('Пришли никнейм ментора')
+        await message.answer('Пришли никнейм и имя ментора как показано снизу:\n@jhonybeegood Николай')
 
 # функция для реагирования на команду /del
 @router.message(F.text, Command("del"))
@@ -97,7 +97,7 @@ async def add_mentor(message: Message):
             if admins[i] == message.from_user.id:
                 id = i + 1
         db.set_waiting(id, 'waiting_mentor_del')
-        await message.answer('Пришли никнейм ментора')
+        await message.answer('Пришли никнейм и имя ментора как показано снизу:\n@jhonybeegood Николай')
 
 @router.message(F.text)
 async def no_type_message(message: Message):
