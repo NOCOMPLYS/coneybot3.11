@@ -40,19 +40,25 @@ class Database:
         
     def set_waiting(self, id, waiting):
         with self.connection:
-            return self.cursor.execute("UPDATE admins SET waiting = ? WHERE id = ?", (waiting, id,)) 
-
+            return self.cursor.execute(f"UPDATE admins SET {waiting} = 1 WHERE id = ?", (waiting, id,)) 
+    
+    def cancel_waiting(self, id):
+        with self.connection:
+            return self.cursor.execute("UPDATE admins SET waiting = 0 WHERE id = ?", (id,))
+            return self.cursor.execute("UPDATE admins SET waiting_mentor_del = 0 WHERE id = ?", (id,))
+            return self.cursor.execute("UPDATE admins SET waiting_mentor_add = 0 WHERE id = ?", (id,))
+    
     def get_waiting(self, id):
         with self.connection:
-            return self.cursor.execute("SELECT waiting FROM admins WHERE id = ?", (id,)).fetchone()
+            return self.cursor.execute("SELECT * FROM admins WHERE id = ?", (id,)).fetchone()
 
-    def add_mentor(self, nickname):
+    def add_mentor(self, nick, name):
         with self.connection:
-            return self.cursor.execute("INSERT INTO mentors (nick) VALUES (?)", (nickname,))
+            return self.cursor.execute("INSERT INTO mentors (nick, name) VALUES (?, ?)", (nick, name,))
 
-    def del_mentor(self, nickname):
+    def del_mentor(self, nick):
         with self.connection:
-            return self.cursor.execute("DELETE FROM mentors WHERE nickname=?", (nickname,))
+            return self.cursor.execute("DELETE FROM mentors WHERE nick=?", (nick,))
 
 
 db = Database('database.db')
