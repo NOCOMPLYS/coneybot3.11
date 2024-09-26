@@ -53,6 +53,7 @@ async def send_mentor(message: Message):
             current_mentor = db.get_current_mentor()
             current_mentor_nick = current_mentor[0]
             current_mentor_name = current_mentor[1]
+            db.change_mentor()
             await message.answer(f"Я вижу вы готовы перейти к заработку. <a href='https://t.me/{current_mentor_nick}'><i><b>[{current_mentor_name}]</b></i></a>", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
