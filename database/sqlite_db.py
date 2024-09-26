@@ -60,6 +60,27 @@ class Database:
         with self.connection:
             return self.cursor.execute("DELETE FROM mentors WHERE nick=?", (nick,))
 
+    def get_current_mentor(self):
+         with self connection:
+            current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id = 1").fetchone()[0]
+            current_name = self.cursor.execute("SELECT name FROM current_mentor WHERE id = 1").fetchone()[0]
+
+    def change_current_mentor(self):
+        with self connection:
+            current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1?").fetchone()[0]
+            nicks = self.cursor.execute("SELECT nick FROM mentors").fetchone()[0]
+            names = self.cursor.execute("SELECT name FROM mentors").fetchone()[0]
+            for i in range(len(nicks)):
+                if nicks[i] == current_nick:
+                    j = i
+            j += 1
+            if j < len(nicks):
+                j += 1
+            elif j == len(nicks):
+                j = 1
+            self.cursor.execute("DELETE FROM current_mentor WHERE nick=?", (сurrent_nick,))
+            return self.cursor.execute("INSERT INTO current_mentor (id, nick, name) VALUES (?, ?, ?)", (1, nicks[j-1], names[j-1],))
+            
 
 db = Database('database.db')
 if db.connection:
