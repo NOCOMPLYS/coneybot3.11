@@ -50,7 +50,7 @@ async def send_mentor(message: Message):
         if False:
             pass
         else:
-            current_mentor = dg.get_current_mentor()
+            current_mentor = db.get_current_mentor()
             current_mentor_nick = current_mentor[0]
             current_mentor_name = current_mentor[1]
             db.change_current_mentor()
