@@ -9,7 +9,7 @@ from decouple import config
 ADMIN_ID = config('ADMIN_ID')
 ADMIN_ID_2 = config('ADMIN_ID_2')
 ADMIN_ID_3 = config('ADMIN_ID_3')
-BOT_TOKEN = config('BOT_TOKEN')
+BOT_TOKEN = config("BOT_TOKEN")
 HOST = config("HOST")
 PORT = int(config("PORT"))
 WEBHOOK_PATH = f'/{BOT_TOKEN}'
