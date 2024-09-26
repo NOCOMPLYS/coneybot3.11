@@ -122,13 +122,13 @@ async def no_type_message(message: Message):
         elif data[2] == 1:
             db.cancel_waiting(id)
             nick, name = map(str, message.text.split())
-            nick = nick.replace("@")
+            nick = nick.replace("@", "")
             db.add_mentor(nick, name)
             await message.answer("Вы успешно добавили ментора!")
         elif data[3] == 1:
             db.cancel_waiting(id)
             nick, name = map(str, message.text.split())
-            nick = nick.replace("@")
+            nick = nick.replace("@", "")
             db.del_mentor(nick, name)
             await message.answer("Вы успешно удалили ментора!")
 
