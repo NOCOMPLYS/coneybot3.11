@@ -114,10 +114,9 @@ async def no_type_message(message: Message):
         if data[1] == 1:
             db.cancel_waiting(id)
             for bot_user in users:
-                try:
-                    await bot.send_message(bot_user, message.text)
-                except:
-                    pass
+                await bot.send_message(bot_user, message.text)
+                #except:
+                    #pass
             await message.answer('Сообщение успешно разослано пользователям!')
         elif data[2] == 1:
             db.cancel_waiting(id)
