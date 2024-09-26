@@ -71,6 +71,7 @@ class Database:
             current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1").fetchone()[0]
             nicks = self.cursor.execute("SELECT nick FROM mentors").fetchall()[0]
             names = self.cursor.execute("SELECT name FROM mentors").fetchall()[0]
+            return nicks
             for i in range(len(nicks)):
                 if nicks[i][0] == current_nick:
                     j = i
