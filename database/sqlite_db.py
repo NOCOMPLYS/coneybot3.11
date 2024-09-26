@@ -78,7 +78,7 @@ class Database:
             for i in range(len(names_all)):
                 names.append(names_all[i])
             for i in range(len(nicks)):
-                if nicks[i] == current_nick:
+                if nicks[i][0] == current_nick:
                     j = i
             j += 1
             if j < len(nicks):
