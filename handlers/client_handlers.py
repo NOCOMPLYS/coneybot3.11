@@ -43,7 +43,13 @@ async def start_command(message: Message):
 # Функция для реагирования на кнопку Зарабатывать
 @router.message(F.text.lower() == "зарабатывать")
 async def send_mentor(message: Message):
-    await message.answer('Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет ')
+    users = []
+    for m in db.get_users():
+         users.append(m[0])
+    if message.from_user.id in users:
+        await message.answer('Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет ')
+    else:
+        await message.answer('Уже скоро. Сперва скажите как вас зовут')
 
 # функция для реагирования на команду /sql
 @router.message(F.text, Command("sql"))
