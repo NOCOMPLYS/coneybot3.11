@@ -165,7 +165,7 @@ async def no_type_message(message: Message):
     elif user in users and db.get_name(user)[0] != None and db.get_age(user)[0] == None:
         if is_int(message.text):
             db.set_age(user, int(message.text))
-            kb = [[KeyboardButton(text="С пюрешкой")]]
+            kb = [[KeyboardButton(text="Зарабатывать")]]
             keyboard = ReplyKeyboardMarkup(
                 keyboard=kb,
                 resize_keyboard=True,
