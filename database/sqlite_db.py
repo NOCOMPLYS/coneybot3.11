@@ -68,29 +68,19 @@ class Database:
 
     def change_current_mentor(self):
         with self.connection:
-            current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id=1").fetchone()[0]
+            current_nick = self.get_current_mentor()[0]
             nicks_all = self.cursor.execute("SELECT nick FROM mentors").fetchall()
             names_all = self.cursor.execute("SELECT name FROM mentors").fetchall()
-            nicks = []
-            names = []
-            for i in range(len(nicks_all)):
-                nicks.append(nicks_all[i])
-            for i in range(len(names_all)):
-                names.append(names_all[i])
-            j = 0
-            flag = 0
-            for i in nicks:
-                if flag != 0:
+            nicks = [row[0] for row in nicks_all]
+            names = [row[0] for row in names_all]
+            current_id = 0
+            for i in range(len(nicks)):
+                if nicks[i] == current_nick:
+                    current_id += i
+                    current_id += 1
                     break
-                if i == current_nick:
-                    flag = 1
-                j += 1
-            if j < len(nicks):
-                j += 1
-            elif j == len(nicks):
-                j = 1
             self.cursor.execute("DELETE FROM current_mentor WHERE nick=?", (current_nick,))
-            return self.cursor.execute("INSERT INTO current_mentor (id, nick, name) VALUES (?, ?, ?)", (1, nicks[j+1], names[j+1],))
+            return self.cursor.execute("INSERT INTO current_mentor (id, nick, name) VALUES (?, ?, ?)", (1, nicks[current_id], names[current_id],))
             
 
 db = Database('database.db')
