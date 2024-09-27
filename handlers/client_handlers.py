@@ -72,9 +72,15 @@ async def send_sql_db(message: Message):
 @router.message(F.text, Command("test"))
 async def test(message: Message):
     if message.from_user.id in admins:
+        kb = [[types.KeyboardButton(text="С пюрешкой")]]
+        keyboard = types.ReplyKeyboardMarkup(
+            keyboard=kb,
+            resize_keyboard=True,
+            input_field_placeholder="Зарабатывать"
+        )
         db.change_current_mentor()
         nickname = db.get_current_mentor()
-        await message.answer(f'Вы сменили текущего ментора. Теперь это {nickname[1]} {nickname[1]}')
+        await message.answer(f'Вы сменили текущего ментора. Теперь это {nickname[0]} {nickname[1]}', reply_markup=keyboard)
 
 # функция для реагирования на команду /cancel
 @router.message(F.text, Command("cancel"))
