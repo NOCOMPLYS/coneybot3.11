@@ -35,9 +35,9 @@ async def start_command(message: Message):
         users.append(m[0])
     if user not in users:
         nickname = message.from_user.username
-        if username == None:
+        if nickname == None:
             nickname = message.from_user.id
-            if username == None:
+            if nickname == None:
                 nickname = message.from_user.first_name
         db.add_user(user_id=message.from_user.id, nickname=nickname)
         await message.answer('Приветствую! 👋\nЗдесь вы можете пройти регистрацию на бесплатный онлайн вебинар.')
