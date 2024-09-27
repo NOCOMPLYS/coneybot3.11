@@ -27,7 +27,7 @@ class Database:
             return self.cursor.execute("SELECT user_id FROM users").fetchall()
     
     def get_user_name(self, user_id):
-        return user_name = self.cursor.execute("SELECT name FROM users WHERE user_id = ?", (user_id,)).fetchone()[0]
+        return self.cursor.execute("SELECT name FROM users WHERE user_id = ?", (user_id,)).fetchone()[0]
         
     def get_registered_users(self):
         with self.connection:
