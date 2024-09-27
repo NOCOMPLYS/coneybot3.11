@@ -1,4 +1,5 @@
 import sqlite3 as sq
+import openpyxl
 
 class Database:
     def __init__(self, db_file):
@@ -99,6 +100,21 @@ class Database:
                 current_id = 0
             self.cursor.execute("DELETE FROM current_mentor WHERE nick=?", (current_nick,))
             return self.cursor.execute("INSERT INTO current_mentor (id, nick, name) VALUES (?, ?, ?)", (1, nicks[current_id], names[current_id],))
+
+    def save_db_as_xlsx(self):
+        with self.connection:
+            book = openpyxl.Workbook()
+            sheet = book.active
+            results = self.cursor.execute("SELECT * FROM `users`").fetchall()
+            i = 0
+            for row in results:
+              i += 1
+              j = 1
+              for col in row:
+                cell = sheet.cell(row = i, column = j)
+                cell.value = col
+                j += 1
+            book.save("database.xlsx")
             
 
 db = Database('database.db')
