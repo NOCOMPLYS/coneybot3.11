@@ -55,9 +55,10 @@ async def send_mentor(message: Message):
             db.assign_mentor(message.from_user.id, current_mentor_nick, current_mentor_name)
             db.change_current_mentor()
             #await bot.send_message(current_mentor_id, f'Вам поступил новый лид: ')
-            await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/agenda766'><i><b>Арсений</b></i></a>", parse_mode='html')
+            await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/{current_mentor_nick}'><i><b>{current_mentor_name}</b></i></a>", parse_mode='html')
         else:
-            pass
+            current_mentor_nick, current_mentor_name = map(str, db.get_assigned_mentor(message.from_user.id).split())
+            await message.answer(f"Вам уже назначен личный менеджер. Ваш личный менеджер - <a href='https://t.me/{current_mentor_nick}'><i><b>{current_mentor_name}</b></i></a>\nЕсли хотите сменить личного менеджера - обратитесь к нему с этой просьбой", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
 
