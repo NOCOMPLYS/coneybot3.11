@@ -65,7 +65,7 @@ class Database:
 
     def assign_mentor(self, user_id, mentor_nick, mentor_name):
         with self.connection:
-            return self.cursor.execute("INSERT INTO users (mentor_data) VALUES (?)", (f'{mentor_nick} {mentor_name}',))
+            return self.cursor.execute("INSERT INTO users (mentor_data) VALUES (?) WHERE user_id=?", (f'{mentor_nick} {mentor_name}', user_id,))
 
     def get_assigned_mentor(self, user_id):
         with self.connection:
