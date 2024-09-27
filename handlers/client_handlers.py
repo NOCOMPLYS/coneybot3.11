@@ -34,6 +34,12 @@ async def start_command(message: Message):
     for m in db.get_users():
         users.append(m[0])
     if user not in users:
+        nickname = message.from_user.username
+        if username == None:
+            nickname = message.from_user.id
+            if username == None:
+                nickname = message.from_user.first_name
+        db.add_user(user_id=message.from_user.id, nickname=nickname)
         await message.answer('Приветствую! 👋\nЗдесь вы можете пройти регистрацию на бесплатный онлайн вебинар.')
         await message.answer('Как вас зовут?')
     else:
@@ -164,7 +170,14 @@ async def no_type_message(message: Message):
                 await message.answer("Ошибка! Проверь правильно ли введён никнейм и пришли мне его заново или нажми /cancel чтобы отменить удаление")
 
     if user not in users:
-        db.add_user(user_id=message.from_user.id, nickname=message.from_user.username)
+        nickname = message.from_user.username
+        if username == None:
+            nickname = message.from_user.id
+            if username == None:
+                nickname = message.from_user.first_name
+        db.add_user(user_id=message.from_user.id, nickname=nickname)
+    
+    elif user in users and db.db.get_name(user)[0] == None
         db.set_name(user, message.text)
         await message.answer('Приятно познакомиться! Подскажи, сколько тебе лет?')
 
