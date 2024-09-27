@@ -1,7 +1,7 @@
 from aiogram import Router, Dispatcher, F
 from aiogram.methods.send_message import SendMessage
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, FSInputFile
+from aiogram.types import Message, FSInputFile, KeyboardButton
 from database.sqlite_db import db
 from decouple import config
 from create_bot import bot
@@ -151,7 +151,13 @@ async def no_type_message(message: Message):
     elif user in users and db.get_name(user)[0] != None and db.get_age(user)[0] == None:
         if is_int(message.text):
             db.set_age(user, int(message.text))
-            await message.answer('Регистрация прошла успешно!')
+            kb = [[types.KeyboardButton(text="С пюрешкой")]]
+            keyboard = types.ReplyKeyboardMarkup(
+                keyboard=kb,
+                resize_keyboard=True,
+                input_field_placeholder="Зарабатывать"
+            )
+            await message.answer('Регистрация прошла успешно!', reply_markup=keyboard)
             await message.answer('https://t.me/+n4Vp4UpZJgs4ZDAy')
         else:
             await message.answer('Я тебя не понял. Пришли мне свой возраст числом.')
