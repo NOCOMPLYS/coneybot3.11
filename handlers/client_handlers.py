@@ -53,9 +53,9 @@ async def send_mentor(message: Message):
             current_mentor = db.get_current_mentor()
             current_mentor_nick = current_mentor[0]
             current_mentor_name = current_mentor[1]
+            #current_mentor_id = db.get_current_mentor_id()
             #db.change_current_mentor()
-            #await message.answer(str(nicknames[0]))
-            #await message.answer(str(nicknames[1]))
+            #await bot.send_message(current_mentor_id, f'Вам поступил новый лид: ')
             await message.answer(f"Я вижу вы готовы перейти к заработку. Вашим личным менеджером будет <a href='https://t.me/agenda766'><i><b>Арсений</b></i></a>", parse_mode='html')
     else:
         await message.answer('Уже скоро. Сперва скажите как вас зовут')
@@ -72,7 +72,7 @@ async def send_sql_db(message: Message):
 @router.message(F.text, Command("test"))
 async def test(message: Message):
     if message.from_user.id in admins:
-        kb = [[KeyboardButton(text="С пюрешкой")]]
+        kb = [[KeyboardButton(text="Зарабатывать")]]
         keyboard = ReplyKeyboardMarkup(
             keyboard=kb,
             resize_keyboard=True,
