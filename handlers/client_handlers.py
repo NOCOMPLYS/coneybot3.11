@@ -68,6 +68,14 @@ async def send_sql_db(message: Message):
         await message.answer('Текущая таблица прикреплена ниже')
         await message.answer_document(FSInputFile("database.db"))
 
+# функция для реагирования на команду /test
+@router.message(F.text, Command("test"))
+async def test(message: Message):
+    if message.from_user.id in admins:
+        db.change_current_mentor()
+        nickname = db.get_current_mentor()
+        await message.answer(f'Вы сменили текущего ментора. Теперь это {nickname[1]} {nickname[1]}')
+
 # функция для реагирования на команду /cancel
 @router.message(F.text, Command("cancel"))
 async def cancel_notif(message: Message):
