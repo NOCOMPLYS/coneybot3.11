@@ -177,7 +177,7 @@ async def no_type_message(message: Message):
                 nickname = message.from_user.first_name
         db.add_user(user_id=message.from_user.id, nickname=nickname)
     
-    elif user in users and db.db.get_name(user)[0] == None
+    elif user in users and db.db.get_name(user)[0] == None:
         db.set_name(user, message.text)
         await message.answer('Приятно познакомиться! Подскажи, сколько тебе лет?')
 
