@@ -79,6 +79,8 @@ class Database:
                     current_id += i
                     current_id += 1
                     break
+            if current_id == len(nicks):
+                current_id = 0
             self.cursor.execute("DELETE FROM current_mentor WHERE nick=?", (current_nick,))
             return self.cursor.execute("INSERT INTO current_mentor (id, nick, name) VALUES (?, ?, ?)", (1, nicks[current_id], names[current_id],))
             
