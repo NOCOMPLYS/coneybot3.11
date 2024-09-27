@@ -76,8 +76,8 @@ async def send_mentor(message: Message):
 @router.message(F.text, Command("sql"))
 async def send_sql_db(message: Message):
     if message.from_user.id in admins:
-        table = open('database.db', 'rb')
-        await message.answer('Текущая таблица прикреплена ниже')
+        db.save_db_as_xlsx()
+        await message.answer('Текущая таблица прикреплена ниже в форматах .db и .xlsx')
         await message.answer_document(FSInputFile("database.xlsx"))
         await message.answer_document(FSInputFile("database.db"))
 
