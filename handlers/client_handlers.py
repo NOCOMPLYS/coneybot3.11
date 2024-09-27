@@ -1,7 +1,7 @@
 from aiogram import Router, Dispatcher, F
 from aiogram.methods.send_message import SendMessage
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, FSInputFile, KeyboardButton
+from aiogram.types import Message, FSInputFile, KeyboardButton, ReplyKeyboardMarkup
 from database.sqlite_db import db
 from decouple import config
 from create_bot import bot
@@ -72,8 +72,8 @@ async def send_sql_db(message: Message):
 @router.message(F.text, Command("test"))
 async def test(message: Message):
     if message.from_user.id in admins:
-        kb = [[types.KeyboardButton(text="С пюрешкой")]]
-        keyboard = types.ReplyKeyboardMarkup(
+        kb = [[KeyboardButton(text="С пюрешкой")]]
+        keyboard = ReplyKeyboardMarkup(
             keyboard=kb,
             resize_keyboard=True,
             input_field_placeholder="Зарабатывать"
@@ -165,8 +165,8 @@ async def no_type_message(message: Message):
     elif user in users and db.get_name(user)[0] != None and db.get_age(user)[0] == None:
         if is_int(message.text):
             db.set_age(user, int(message.text))
-            kb = [[types.KeyboardButton(text="С пюрешкой")]]
-            keyboard = types.ReplyKeyboardMarkup(
+            kb = [[KeyboardButton(text="С пюрешкой")]]
+            keyboard = ReplyKeyboardMarkup(
                 keyboard=kb,
                 resize_keyboard=True,
                 input_field_placeholder="Зарабатывать"
