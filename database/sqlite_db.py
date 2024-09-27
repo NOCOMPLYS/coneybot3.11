@@ -60,6 +60,14 @@ class Database:
         with self.connection:
             return self.cursor.execute("DELETE FROM mentors WHERE nick=?", (nick,))
 
+    def assign_mentor(self, user_id, mentor_nick, mentor_name)
+        with self.connection:
+            return self.cursor.execute("INSERT INTO users (mentor_data) VALUES (?)", (f'{mentor_nick} {mentor_name}',))
+
+    def get_assigned_mentor(self, user_id)
+        with self.connection:
+            return self.cursor.execute("SELECT mentor_data FROM users WHERE user_id = ?", (user_id,)).fetchone()[0]
+    
     def get_current_mentor(self):
          with self.connection:
             current_nick = self.cursor.execute("SELECT nick FROM current_mentor WHERE id = 1").fetchone()[0]
